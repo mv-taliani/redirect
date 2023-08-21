@@ -1,0 +1,61 @@
+{% extends "title.html" %}
+
+{% block content %}
+    <div class="about-me container" style="position:relative">
+              {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+              {% if category == 'PESQUISA' %}
+                <div class="notification is-danger" style="text-align: center; color: black;
+                background-color: #18d26e; width: 25%; margin: auto">
+                    {{ message }}
+                </div>
+            {% endif %}
+                    {% if category == 'message' %}
+                <div class="notification is-danger" style="text-align: center; color: white;
+                background-color: red; width: 25%; margin: auto">
+                    {{ message }}
+                </div>
+            {% endif %}
+                    {% if category == 'AVISO' %}
+                <div class="notification is-danger" style="text-align: center; color: white;
+                background-color: blue; width: 25%; margin: auto">
+                    {{ message }}
+                </div>
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
+      <div class="row">
+        <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+          <h3>{{ vendedor.nome }}</h3>
+          <div class="row">
+            <div class="col-lg-6">
+              <ul>
+                {% for telefone in telefones %}
+                    <li><i class="bi bi-chevron-right"></i>
+                      <strong style="color: #00547F">Telefone {{ loop.index }}:</strong>
+                      <span style="color: #08A6FE">{{ telefone.numero }} - {{ telefone.empresa }}</span>
+    <a href="{{ url_for('del_num', num=telefone.num_id, id=vendedor.user_id) }}">  <i class="bi bi-x" style="color: #d2187c; font-size: 30px;"></i>
+        </a>
+                        </li>
+                  {% endfor %}
+
+                      <li><i class="bi bi-chevron-right"></i>
+                          <strong style="color: #00547F">Add. Num:</strong>
+                          <form action="{{ url_for('numeros', id=vendedor.user_id) }}" method="POST">
+                          <input type="number" class="input is-large" name="num" placeholder="+55XXXXXXXXXX">
+                          <select name="empresa">
+                              {% for empresa in empresas %}
+                              <option value="{{ empresa }}">{{ empresa }}</option>
+                              {% endfor %}
+                          </select>
+                          </form>
+                      </li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "title.html" %}
+
+{% block content %}
+
+<script>
+function openGraph(evt, Graph) {
+  var i, tabcontent, tablinks;
+
+  tabcontent = document.getElementsByClassName("grafs");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(Graph).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+<script src="{{url_for('static', filename='js/num.js')}}"></script>
+
+<h3 class="title" style="color: #00547F; text-align: center; margin-top: 2%"><strong>CAMPANHAS</strong></h3>
+<a href="/setar"></a>
+<div class="tab_">
+    {% for empresa in empresas %}
+    <a href="{{ url_for('vendedores', emp=empresa) }}"><button class="tablinks" id="tab_atend">{{ empresa }}</button></a>
+    {% endfor %}
+
+</div>
+
+<div class="column is-4 is-offset-4">
+    <div class="container" style="background: rgba( 255, 255, 255, 0.35 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px )
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 40%;
+    margin-left: 5%;
+    margin-top: 2%;
+    padding: 2%;
+    text-align: center;
+    display: inline-block;">
+            <h4 class="title" style="color: #08a6fe; text-align: center"><strong>SEM CAMPANHA</strong></h4>
+        <div class="users_camp">
+            <ul style="list-style-type:none;">
+                {% for vendedor in sem_campanha %}
+                                {% if not vendedor.numeros %}
+                {% if not empresa or vendedor.empresa == empresa  %}
+               <li><div class="users_box" style="color: #08a6fe;"><a href="{{ url_for('numeros', id=vendedor.user_id)}}">
+                    {{ vendedor.nome }}
+               </a></div></li>
+                {% endif %}
+                {% endif %}
+                {% for numero in vendedor.numeros %}
+                {% if not numero.campanha %}
+                {% if not empresa or numero.empresa == empresa %}
+               <li><div class="users_box" style="color: #08a6fe;"><a href="{{ url_for('numeros', id=vendedor.user_id)}}">
+                    {{ vendedor.nome }}
+                   - {{ numero.numero }}
+                   - {{ numero.empresa }}
+                   </a>
+                   <a href="{{ url_for('atualizar', id=numero.num_id, up=1) }}">
+                       <i class="bi bi-check" style="color: #08a6fe; font-size: 30px;"></i>
+        </a>
+                </div>
+                    </li>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </ul>
+
+</div>
+</div>
+
+
+    <div class="container" style="background: rgba( 255, 255, 255, 0.35 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 40%;
+    margin-left: 5%;
+    margin-top: 2%;
+    padding: 2%;
+    text-align: center;
+    display: inline-block;">
+            <h4 class="title" style="color: #08a6fe; text-align: center"><strong>EM CAMPANHA</strong></h4>
+        <div class="users_camp">
+            <ul style="list-style-type:none;">
+                {% for vend in campanha %}
+                {% for numero in vend.numeros %}
+                {% if numero.campanha %}
+                {% if numero.campanha >= 1 %}
+                {% if not empresa or numero.empresa == empresa %}
+
+                <li><div class="users_box" style="color: #08a6fe;"><a href="{{ url_for('numeros', id=vend.user_id)}}">
+                {{ vend.nome }}
+                   - {{ numero.numero }}
+                </a>
+                    <label style="color: black; margin-left: 8px">{{ numero.campanha }}x - {{ numero.empresa }}</label>
+                    <a href="{{ url_for('atualizar', id=numero.num_id, up=1) }}"> <i class="bi bi-check" style="color: #08a6fe; font-size: 30px;"></i></a>
+    <a href="{{ url_for('atualizar', id=numero.num_id, up=-1) }}"> <i class="bi bi-x" style="color: #d2187c; font-size: 30px;"></i>
+        </a>
+                </div>
+                    </li>
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+
+            </ul>
+
+</div>
+</div>
+
+    </div>
+
+{% endblock %}

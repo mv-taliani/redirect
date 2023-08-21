@@ -1,0 +1,49 @@
+{% extends "title.html" %}
+
+{% block content %}
+
+<div class="column is-4 is-offset-4">
+    <div class="container" style="background: #08A6FE;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px #00547F;
+        width: 700px;
+        margin: 6% auto;
+        padding: 30px;
+        text-align: center;">
+            <h3 class="title" style="color: #ffffff; text-align: center"><strong>LOGIN</strong></h3>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="notification is-danger" style="text-align: center; color: red">
+    {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+
+
+<form method="POST" action="/login" style="background-color: transparent;
+    padding: 20px;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;">
+
+
+<div class="field">
+  <div class="control">
+      <input class="input is-large" type="text" name="user" placeholder="Username" autofocus=""
+      style="border-radius:7px">
+  </div>
+</div>
+<br>
+<div class="field">
+  <div class="control">
+      <input class="input is-large" type="password" name="senha" placeholder="Senha" autofocus=""
+      style="border-radius:7px">
+  </div>
+</div>
+<br>
+<button class="button-login" style="background-color: #fff">ACESSAR</button>
+</form>
+</div>
+</div>
+{% endblock %}

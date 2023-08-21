@@ -1,0 +1,70 @@
+{% extends "title.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <div class="container" style="background: #08A6FE;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px #fff;
+        width: 700px;
+        margin: 5% auto;
+        padding: 30px;
+        text-align: center;">
+            <h3 class="title" style="color: #ffffff; text-align: center"><strong>CADASTRO</strong></h3>
+                {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="notification is-danger" style="text-align: center; color: red">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="/create_user" style="background-color: transparent;
+    padding: 20px;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="user" placeholder="Username" autofocus=""
+                    style="border-radius:7px" required>
+                </div>
+            </div>
+
+            <div class="field"><br>
+                <div class="control">
+                    <input class="input is-large" type="text" name="nome" placeholder="Nome"
+                    style="border-radius: 7px" required>
+                </div>
+            </div>
+                        <div class="field"><br>
+                <div class="control">
+                    <input class="input is-large" type="password" name="senha" placeholder="Senha"
+                    style="border-radius: 7px" required>
+                </div>
+            </div>
+                        <div class="field"><br>
+                <div class="control">
+                    <select class="input is-large" name="hierarquia"
+                    style="border-radius: 7px; width: 100%" required>
+                        <option value="2">ADM</option>
+                        <option value="1">VENDEDOR</option>
+                    </select>
+                </div>
+                        </div>
+            <br>
+                                    <div class="field">
+                <div class="control">
+                    <select class="input is-large" name="empresa"
+                    style="border-radius: 7px; width: 100%" required>
+                        {% for empresa in empresas %}
+                        <option value="{{ empresa }}">{{ empresa }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                        </div>
+            <br>
+            <button class="button-sign" style="background-color: #fff">CADASTRAR</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

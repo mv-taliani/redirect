@@ -1,0 +1,42 @@
+{% extends "title.html" %}
+
+{% block content %}
+<h3 class="title" style="color: #00547F; text-align: center; margin-top: 2%"><strong>CADASTRAR</strong></h3>
+
+<div class="column is-4 is-offset-4">
+    <div class="container" style="background-color: black;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px #00547F;
+        width: 700px;
+        margin: 3% auto;
+        padding: 30px;
+        text-align: center;">
+      <form method="POST" action="/create_vendedor" style="background-color: transparent;
+    padding: 20px;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;">
+
+
+<div class="field">
+  <div class="control">
+      <input class="input is-large" type="text" name="nome" placeholder="Nome" autofocus=""
+      style="border-radius:7px">
+  </div>
+</div>
+<div class="field">
+  <div class="control">
+      <select>
+          {% for empresa in empresas %}
+          <option value="{{ empresa }}">{{ empresa }}</option>
+          {% endfor %}
+      </select>
+  </div>
+</div>
+        <br>
+        <button class="button-login">CADASTRAR</button>
+      </form>
+    </div>
+</div>
+
+{% endblock %}

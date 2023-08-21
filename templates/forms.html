@@ -1,0 +1,29 @@
+{% extends "title.html" %}
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="static/logo_branco_teste.png" id="icon" alt="User Icon" />
+    </div>
+    <br>
+
+    <!-- Login Form -->
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% block content %}
+
+{% endblock %}
+
+  </div>
+</div>
